@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>inputs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Number type input -->
+
+<ion-content fullscreen>
+  <form onsubmit="processForm(event)">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      
+      
+      <ion-item>
+        <ion-label position="floating">Numero de Cores</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Escalonamento: </ion-label>
+        <ion-select interface="popover">
+          <ion-select-option value="fifo">FIFO</ion-select-option>
+          <ion-select-option value="sjf">SJF</ion-select-option>
+          <ion-select-option value="roundRobin">Round Robin</ion-select-option>
+          
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin">Start</ion-button>
+    </div>
+  </form>
+</ion-content>
+
