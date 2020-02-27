@@ -13,12 +13,12 @@
       
       <ion-item>
         <ion-label position="floating">Numero de Cores</ion-label>
-        <ion-input></ion-input>
+        <ion-input type = "number"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Escalonamento: </ion-label>
-        <ion-select interface="popover">
+        <ion-select value = "fifo" (ionChange)="switchEscalonamento($event)" interface="popover">
           <ion-select-option value="fifo">FIFO</ion-select-option>
           <ion-select-option value="sjf">SJF</ion-select-option>
           <ion-select-option value="roundRobin">Round Robin</ion-select-option>
@@ -29,7 +29,7 @@
     </ion-list>
 
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin">Start</ion-button>
+      <ion-button (click) =  "start()" >Start</ion-button>
     </div>
   </form>
 </ion-content>
