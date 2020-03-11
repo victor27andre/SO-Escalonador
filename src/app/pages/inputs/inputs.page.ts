@@ -1,5 +1,13 @@
+import { MenuService } from './../../services/menu.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+// fazer o import do objeto menu
+import { MenuModelModule } from '../../modules/menu-model/menu-model.module';
+import { FifoService } from '../../services/fifo.service'
+
+
+
 
 @Component({
   selector: 'app-inputs',
@@ -8,40 +16,71 @@ import { RouterLink, Router } from '@angular/router';
 })
 export class InputsPage implements OnInit {
 
-  escalonamento = "fifo";
+
+  formgroup: FormGroup
+  numeroProcesso: any
+  core:any
+  escalonador: any
+
+  quantum = new FormControl(['',[Validators.required, Validators.max(20), Validators.min(2)]])
+
+  
 
   constructor(
-    private router : Router
-  ) { }
+    private router : Router,
+    public formbuilder: FormBuilder,
+    public menuservice : MenuService
+    )
+    {
+      this.formgroup = formbuilder.group({
+        numeroProcesso: ['',Validators.required],
+        core: ['',[Validators.required, Validators.max(64), Validators.min(1)]],
+        escalonador: ['',Validators.required],
+      })
+
+      this.numeroProcesso = this.formgroup.controls['numeroProcesso'],
+      this.core = this.formgroup.controls['core']
+      this.escalonador = this.formgroup.controls['escalonador']
+    }
 
   ngOnInit() {
   }
+  
 
-  switchEscalonamento($event){
+  switchEscalonador($event){
     switch ($event.target.value) {
       case 'fifo': {
-        this.escalonamento = 'fifo'
+        this.escalonador = 'fifo'
+        this.formgroup.removeControl('quantum')
         break;
       }
       case 'sjf': {
-        this.escalonamento = 'sjf'
+        this.escalonador = 'sjf'
+        this.formgroup.removeControl('quantum')
         break;
       }
       case 'roundRobin': {
-        this.escalonamento = 'round-robin'
+        this.escalonador = 'round-robin'
+        this.formgroup.addControl('quantum',this.quantum)
         break;
       }
       default: {
-        this.escalonamento = 'fifo'
+        this.escalonador = 'fifo'
+        this.formgroup.removeControl('quantum')
         break;
       }
     }
   }
 
   start() {
-    this.router.navigate([this.escalonamento])
+    console.log(this.formgroup.value)
+    this.menuservice.menu = this.formgroup.value
+    this.router.navigate([this.escalonador])
   }
   
+  processForm(menuForm) {
+    console.log('mano do ceu');
+  }
 
 
 
