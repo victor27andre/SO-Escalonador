@@ -11,21 +11,21 @@ import { MenuService } from 'src/app/services/menu.service';
 export class FifoPage implements OnInit {
 
   constructor(
-    public fifoservice : FifoService,
-    public processservice : ProcessService,
+    public fifoservice: FifoService,
+    public processservice: ProcessService,
     public menuservice: MenuService
   ) { }
 
   ngOnInit() {
     console.log(this.menuservice.menu.numeroProcesso);
-    
-    // this.processservice.generateProcess()
+    this.processservice.generateProcess(this.menuservice.menu.numeroProcesso); // Starta os primeiros processos
+
   }
 
   print() {
-    console.log(this.menuservice.menu.numeroProcesso);
+    console.log(this.processservice.processo);
+    console.log(this.menuservice.menu.core);
   }
 
-  
 
 }
