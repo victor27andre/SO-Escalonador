@@ -1,13 +1,13 @@
 import { MenuService } from './menu.service';
 import { Injectable } from '@angular/core';
-import { FifoService } from '../services/fifo.service';
+import { FifoService } from './fifo.service';
 
 import { Process } from '../models/process';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessService {
+export class KernelService {
 
   processo = [];
 
