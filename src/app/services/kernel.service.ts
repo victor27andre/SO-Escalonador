@@ -25,7 +25,7 @@ export class KernelService {
         state: 'ready' ,
         remaining_time: 0 // recebe 0, pois ainda nao esta processando.
       });
-      console.log(this.processo);
+      // console.log(this.processo);
     }
   }
 }

@@ -10,7 +10,6 @@ export class ProcessadorService {
   constructor(
     public menuservice: MenuService
   ) { }
-  
 
 
   cores: Process [] = [];

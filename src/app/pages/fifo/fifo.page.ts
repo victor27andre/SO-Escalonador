@@ -16,19 +16,34 @@ export class FifoPage implements OnInit {
     public kernel: KernelService,
     public menuservice: MenuService,
     public processador: ProcessadorService,
-    
+
   ) { }
+
 
   ngOnInit() {
     console.log(this.menuservice.menu);
-    this.kernel.generateProcess(this.menuservice.menu.numeroProcesso); // Starta os primeiros processos
-    this.processador.gerarCores(this.menuservice.menu.core);
+    this.kernel.generateProcess(this.menuservice.menu.numeroProcesso); // 10 - Starta os primeiros processos
+    this.processador.gerarCores(this.menuservice.menu.core); // 4 - Gera os nucleos
+  }
+
+  // Movendo processos
+  moveProcess() {
+    this.processador.cores.forEach((element, index) => {
+      if (!element.process_id) { // Separa o vetor que esteja vazio
+        this.processador.cores.splice(index) ; // nesse caso ele esta apagando, nesse caso deve jogar os processos para os cores
+      }
+    });
+    console.log(this.kernel.processo);
   }
 
   print() {
-    console.log(this.kernel.processo);
-    console.log(this.menuservice.menu.core);
+    // console.log(this.kernel.processo);
+    // console.log(this.menuservice.menu.core);
+    // console.log(this.processador.cores);
+    // console.log('//////////////////////');
+    this.moveProcess();
     console.log(this.processador.cores);
+
   }
 
 
