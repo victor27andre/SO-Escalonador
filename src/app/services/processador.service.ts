@@ -12,7 +12,7 @@ export class ProcessadorService {
   ) { }
 
 
-  cores: Process [] = [];
+  public cores: Process [] = [];
 
   gerarCores(quantidadeCores) {
     for (let i = 0; i < quantidadeCores; i++) {

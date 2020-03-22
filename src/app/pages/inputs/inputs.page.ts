@@ -24,19 +24,18 @@ export class InputsPage implements OnInit {
 
   quantum = new FormControl(['',[Validators.required, Validators.max(20), Validators.min(2)]])
 
-  
+
 
   constructor(
-    private router : Router,
+    private router: Router,
     public formbuilder: FormBuilder,
-    public menuservice : MenuService
-    )
-    {
+    public menuservice: MenuService
+    ) {
       this.formgroup = formbuilder.group({
-        numeroProcesso: ['',Validators.required],
-        core: ['',[Validators.required, Validators.max(64), Validators.min(1)]],
-        escalonador: ['',Validators.required],
-      })
+        numeroProcesso: ['', Validators.required],
+        core: ['', [Validators.required, Validators.max(64), Validators.min(1)]],
+        escalonador: ['', Validators.required],
+      });
 
       this.numeroProcesso = this.formgroup.controls['numeroProcesso'],
       this.core = this.formgroup.controls['core']
@@ -45,41 +44,37 @@ export class InputsPage implements OnInit {
 
   ngOnInit() {
   }
-  
 
-  switchEscalonador($event){
+
+  switchEscalonador($event) {
     switch ($event.target.value) {
       case 'fifo': {
-        this.escalonador = 'fifo'
-        this.formgroup.removeControl('quantum')
+        this.escalonador = 'fifo';
+        this.formgroup.removeControl('quantum');
         break;
       }
       case 'sjf': {
-        this.escalonador = 'sjf'
-        this.formgroup.removeControl('quantum')
+        this.escalonador = 'sjf';
+        this.formgroup.removeControl('quantum');
         break;
       }
       case 'roundRobin': {
-        this.escalonador = 'round-robin'
-        this.formgroup.addControl('quantum',this.quantum)
+        this.escalonador = 'round-robin';
+        this.formgroup.addControl('quantum', this.quantum);
         break;
       }
       default: {
-        this.escalonador = 'fifo'
-        this.formgroup.removeControl('quantum')
+        this.escalonador = 'fifo';
+        this.formgroup.removeControl('quantum');
         break;
       }
     }
   }
 
   start() {
-    console.log(this.formgroup.value)
-    this.menuservice.menu = this.formgroup.value
-    this.router.navigate([this.escalonador])
-  }
-  
-  processForm(menuForm) {
-    console.log('mano do ceu');
+    // console.log(this.formgroup.value); // configuração setada
+    this.menuservice.menu = this.formgroup.value;
+    this.router.navigate([this.escalonador]);
   }
 
 

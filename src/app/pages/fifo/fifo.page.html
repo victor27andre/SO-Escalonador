@@ -5,7 +5,29 @@
 </ion-header>
 
 <ion-content>
-  
+  <div>
+    <h1>Core</h1>
+    <button style="padding: 5px;" (click)='KillProcessCore(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
+      <div style="padding: 5px;">
+        ID : {{processoNoNucleo.process_id}}
+        Tempo Corrido : {{processoNoNucleo.remaining_time}}
+        Stado : {{processoNoNucleo.state}}
+        Tempo total : {{processoNoNucleo.total_time}}
+      </div>
+    </button>
+  </div>
+
+  <div>
+    <h1>Processos</h1>
+    <button style="padding: 5px;" (click)='KillProcessFila(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
+      <div style="padding: 5px;">
+        ID : {{processoNaFila.process_id}}
+        Tempo Corrido: {{processoNaFila.remaining_time}}
+        Stado : {{processoNaFila.state}}
+        Tempo total: {{processoNaFila.total_time}}
+      </div>
+    </button>
+  </div>
   
   <ion-button type='submit' (click)= 'print()' >Print </ion-button>
 </ion-content>

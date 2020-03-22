@@ -11,6 +11,7 @@ import { ProcessadorService } from 'src/app/services/processador.service';
 })
 export class FifoPage implements OnInit {
 
+
   constructor(
     public fifoservice: FifoService,
     public kernel: KernelService,
@@ -28,10 +29,14 @@ export class FifoPage implements OnInit {
     this.processador.gerarCores(this.menuservice.menu.core); // 4 - Gera os nucleos
     console.log(this.processador.cores);
     console.log(this.kernel.processo);
+    this.moveProcess();
+    console.log(this.processador.cores);
+    console.log(this.kernel.processo);
   }
 
   // Movendo processos
   moveProcess() {
+    console.log('Movendo processo');
     this.processador.cores.forEach((elementProcessador, index) => {
       if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio
         // this.processador.cores.splice(index) ; // nesse caso ele esta apagando, nesse caso deve jogar os processos para os cores
@@ -42,15 +47,27 @@ export class FifoPage implements OnInit {
     // console.log(this.kernel.processo);
   }
 
-  print() {
-    // console.log(this.kernel.processo);
-    // console.log(this.menuservice.menu.core);
-    // console.log(this.processador.cores);
-    // console.log('//////////////////////');
+  KillProcessCore(index) {
+    console.log(index);
+    this.kernel.killProcess(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
     this.moveProcess();
-    console.log(this.processador.cores);
-    console.log(this.kernel.processo);
+  }
 
+  KillProcessFila(index) {
+    console.log(index);
+    this.kernel.killProcessFila(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
+  }
+
+  print() {
+    // console.log('PRINT');
+    // console.log(this.processador.cores);
+    // console.log(this.kernel.processo);
+    // this.kernel.killProcess(this.processador.cores.indexOf(this.processador.cores[1])); // indexOf puxa o valor do index na array
+    // console.log(this.processador.cores);
+    // console.log(this.kernel.processo);
+    // this.moveProcess();
+    // console.log(this.processador.cores);
+    // console.log(this.kernel.processo);
   }
 
 
