@@ -30,6 +30,20 @@
     </button>
   </div>
 
+  <div>
+    <h1>Processos Finalizados</h1>
+    <button class="button button--outline" *ngFor= "let processoFinish of this.terminated" >
+      <div>
+        ID : {{processoFinish.process_id}}
+        Tempo Corrido: {{processoFinish.remaining_time}}
+        Stado : {{processoFinish.state}}
+        Tempo total: {{processoFinish.total_time}}
+      </div>
+    </button>
+  </div>
+
+
+
   <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
   <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
 

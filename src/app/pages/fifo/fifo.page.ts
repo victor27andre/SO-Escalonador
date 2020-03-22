@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { KernelService } from 'src/app/services/kernel.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { ProcessadorService } from 'src/app/services/processador.service';
+import { Process } from 'src/app/models/process';
 
 @Component({
   selector: 'app-fifo',
@@ -15,6 +16,10 @@ export class FifoPage implements OnInit {
 time = 0;
 interval;
 play = false;
+
+public terminated: Process [] = [];
+
+
 
 
   constructor(
@@ -35,7 +40,6 @@ play = false;
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
     this.moveProcess();
-  
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
   }
@@ -63,7 +67,7 @@ play = false;
     this.kernel.killProcessFila(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
   }
 
-  print(index) {
+  print() {
     // console.log('PRINT');
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
@@ -74,13 +78,8 @@ play = false;
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
     ///////////////////////////////////////
-    console.log(index.state);
-    index.state = 'running';
+    console.log(this.terminated);
   }
-
-  ////////////
-
-
 
 startTimer() {
   this.play = true;
@@ -91,16 +90,35 @@ startTimer() {
       if (elementProcessador.remaining_time === elementProcessador.total_time) {
         (this.processador.cores[index]).state = 'terminated';
       }
+      if ((this.processador.cores[index]).state === 'terminated') {
+        console.log('terminou!!', this.processador.cores[index]);
+        this.moveProcessoTerminated(this.processador.cores[index]);
+      }
     });
    // (this.processador.cores[0]).remaining_time++; // incrementando no tempo corrido
   }, 1000);
-  console.log(this.processador.cores);
+  // console.log(this.processador.cores);
 }
 
 pauseTimer() {
   this.play = false;
   clearInterval(this.interval);
 }
+
+moveProcessoTerminated(processFinish) {
+  console.log('Movendo processo', processFinish);
+  this.terminated.forEach((elementProcessador, index) => {
+    console.log('entra aqui??!', elementProcessador);
+    if (!elementProcessador) { // Separa o vetor que esteja vazio
+      console.log('entra aqui??!');
+      this.terminated.splice(index, 0, processFinish); // adiciona o processo no nucleo da array do kernel
+      console.log(this.terminated);
+      // this.kernel.processo.splice(0, 1); // retira o primeiro
+    }
+  });
+}
+
+
 
 
 
