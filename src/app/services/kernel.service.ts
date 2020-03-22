@@ -55,5 +55,16 @@ export class KernelService {
     this.processo.splice(i, 1);
   }
 
+  addProcess(numeroProcess) {
+      this.processo.push({ // incrementa array
+        process_id: numeroProcess,
+        total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
+        state: 'ready' ,
+        remaining_time: 0 // recebe 0, pois ainda nao esta processando.
+      });
+      this.menuservice.menu.numeroProcesso ++;
+  }
+
+
 }
 

@@ -12,6 +12,11 @@ import { ProcessadorService } from 'src/app/services/processador.service';
 export class FifoPage implements OnInit {
 
 
+time = 0;
+interval;
+play = false;
+
+
   constructor(
     public fifoservice: FifoService,
     public kernel: KernelService,
@@ -27,11 +32,12 @@ export class FifoPage implements OnInit {
     // console.log(this.menuservice.menu); // mostra as opçoes do menu
     this.kernel.generateProcess(this.menuservice.menu.numeroProcesso); // 10 - Starta os primeiros processos
     this.processador.gerarCores(this.menuservice.menu.core); // 4 - Gera os nucleos
-    console.log(this.processador.cores);
-    console.log(this.kernel.processo);
+    // console.log(this.processador.cores);
+    // console.log(this.kernel.processo);
     this.moveProcess();
-    console.log(this.processador.cores);
-    console.log(this.kernel.processo);
+  
+    // console.log(this.processador.cores);
+    // console.log(this.kernel.processo);
   }
 
   // Movendo processos
@@ -39,12 +45,11 @@ export class FifoPage implements OnInit {
     console.log('Movendo processo');
     this.processador.cores.forEach((elementProcessador, index) => {
       if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio
-        // this.processador.cores.splice(index) ; // nesse caso ele esta apagando, nesse caso deve jogar os processos para os cores
+        (this.kernel.processo[0]).state = 'running';
         this.processador.cores.splice(index, 1, this.kernel.processo[0]); // adiciona o processo no nucleo da array do kernel
         this.kernel.processo.splice(0, 1); // retira o primeiro
       }
     });
-    // console.log(this.kernel.processo);
   }
 
   KillProcessCore(index) {
@@ -58,7 +63,7 @@ export class FifoPage implements OnInit {
     this.kernel.killProcessFila(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
   }
 
-  print() {
+  print(index) {
     // console.log('PRINT');
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
@@ -68,7 +73,35 @@ export class FifoPage implements OnInit {
     // this.moveProcess();
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
+    ///////////////////////////////////////
+    console.log(index.state);
+    index.state = 'running';
   }
+
+  ////////////
+
+
+
+startTimer() {
+  this.play = true;
+  this.interval = setInterval(() => {
+    this.time++;
+    this.processador.cores.forEach((elementProcessador, index) => {
+      (this.processador.cores[index]).remaining_time++;
+      if (elementProcessador.remaining_time === elementProcessador.total_time) {
+        (this.processador.cores[index]).state = 'terminated';
+      }
+    });
+   // (this.processador.cores[0]).remaining_time++; // incrementando no tempo corrido
+  }, 1000);
+  console.log(this.processador.cores);
+}
+
+pauseTimer() {
+  this.play = false;
+  clearInterval(this.interval);
+}
+
 
 
 }
