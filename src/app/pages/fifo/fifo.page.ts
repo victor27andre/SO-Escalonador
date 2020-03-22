@@ -104,7 +104,7 @@ pauseTimer() {
   this.play = false;
   clearInterval(this.interval);
 }
-
+// NAO ESTA MOVENDO PARA ARRAY DE FINISH!
 moveProcessoTerminated(processFinish) {
   console.log('Movendo processo', processFinish);
   this.terminated.forEach((elementProcessador, index) => {
