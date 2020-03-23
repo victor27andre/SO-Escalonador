@@ -13,10 +13,15 @@ export class ProcessadorService {
 
 
   public cores: Process [] = [];
+  public terminated: Process [] = [];
 
   gerarCores(quantidadeCores) {
     for (let i = 0; i < quantidadeCores; i++) {
       this.cores[i] = new Process();
     }
+  }
+
+  gerarFilaProcessosFinalizados() {
+    this.terminated[0] = new Process();
   }
 }

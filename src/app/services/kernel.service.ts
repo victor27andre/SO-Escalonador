@@ -36,8 +36,8 @@ export class KernelService {
   generateProcessVazio() {
         this.coreVazio.push({ // incrementa array
         process_id: 0,
-        total_time: 20, // cria o processo randomicamente de 1 a 20
-        state: '' ,
+        total_time: 0, // cria o processo randomicamente de 1 a 20
+        state: 'empty' ,
         remaining_time: 0 // recebe 0, pois ainda nao esta processando.
       });
   }

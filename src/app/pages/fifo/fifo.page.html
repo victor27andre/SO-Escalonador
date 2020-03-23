@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>fifo</ion-title>
+    <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button>
+    <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
+  <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
+
+<div>TIMER : {{time}}</div>
   </ion-toolbar>
 </ion-header>
 
@@ -32,7 +37,7 @@
 
   <div>
     <h1>Processos Finalizados</h1>
-    <button class="button button--outline" *ngFor= "let processoFinish of this.terminated" >
+    <button class="button button--outline" *ngFor= "let processoFinish of this.processador.terminated" >
       <div>
         ID : {{processoFinish.process_id}}
         Tempo Corrido: {{processoFinish.remaining_time}}
@@ -44,11 +49,9 @@
 
 
 
-  <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
+  <!-- <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
   <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
 
 <div>{{time}}</div>
-  <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button>
-  
-  <ion-button type='submit' (click)= 'print()' >Print </ion-button>
+  <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button> -->
 </ion-content>
