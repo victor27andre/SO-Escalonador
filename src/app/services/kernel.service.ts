@@ -46,12 +46,12 @@ export class KernelService {
   // state: estado do processo: "ready", "running" ou "terminated".
   killProcess(i) {
     this.generateProcessVazio();
-    console.log('Kill no processo de index: ', i);
+    // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
     this.processador.cores.splice(i, 1, this.coreVazio[0]);
   }
   killProcessFila(i) {
     this.generateProcessVazio();
-    console.log('Kill no processo de index: ', i);
+    // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
     this.processo.splice(i, 1);
   }
 

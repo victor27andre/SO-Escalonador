@@ -65,7 +65,7 @@ play = false;
 
   KillProcessFila(index) {
     // console.log(index);
-    this.kernel.killProcessFila(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
+    this.kernel.killProcessFila(this.kernel.processo.indexOf(index)); // indexOf puxa o valor do index na array
   }
 
   print() {
@@ -112,7 +112,7 @@ pauseTimer() {
 moveProcessoTerminated(processFinish) {
   console.log('Movendo processo para finalizado', processFinish);
   this.processador.terminated.forEach((elementProcessador, index) => {
-    console.log(elementProcessador);
+    // console.log(elementProcessador);
     if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio
       this.processador.terminated.splice(index, 0, processFinish); // adiciona o processo no nucleo da array do kernel
       // this.kernel.processo.splice(0, 1); // retira o primeiro

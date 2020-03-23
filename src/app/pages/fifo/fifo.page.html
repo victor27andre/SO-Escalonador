@@ -25,7 +25,7 @@
 
   <div>
     <h1>Processos</h1>
-    <button class="button button--outline" (click)='KillProcessFila(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
+    <button class="button button--outline" (click)='KillProcessFila(processoNaFila)' (click)='print(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
       <div>
         ID : {{processoNaFila.process_id}}
         Tempo Corrido: {{processoNaFila.remaining_time}}
