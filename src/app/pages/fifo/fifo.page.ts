@@ -109,7 +109,7 @@ pauseTimer() {
   clearInterval(this.interval);
 }
 
-moveProcessoTerminated(processFinish) {
+moveProcessoTerminated(processFinish) {  
   console.log('Movendo processo para finalizado', processFinish);
   this.processador.terminated.forEach((elementProcessador, index) => {
     // console.log(elementProcessador);
@@ -118,6 +118,27 @@ moveProcessoTerminated(processFinish) {
       // this.kernel.processo.splice(0, 1); // retira o primeiro
     }
   });
+}
+
+clickMoveFinishProcessCore(i) {
+  if (i.process_id !== 0) {
+    this.kernel.generateProcessVazio();
+    // console.log('mudar o status ', i); // index da array q deseja excluir
+    // console.log(i);
+    // console.log('index: ', i.process_id, 'state', i.state);
+    i.state = 'terminated';
+    this.moveProcessoTerminated(i);
+    this.KillProcessCore(i);
+  }
+}
+
+
+cliclMoveFinishProcessFila(i) {
+  this.kernel.generateProcessVazio();
+  // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
+  i.state = 'terminated';
+  this.moveProcessoTerminated(i);
+  this.kernel.killProcessFila(i);
 }
 
 

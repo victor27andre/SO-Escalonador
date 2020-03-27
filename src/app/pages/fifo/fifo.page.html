@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>fifo</ion-title>
+    <ion-title>FIFO</ion-title>
     <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button>
     <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
   <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
@@ -12,7 +12,7 @@
 <ion-content>
   <div>
     <h1>Core</h1>
-    <button style="padding: 5px;" (click)='KillProcessCore(processoNoNucleo)' (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
+    <button style="padding: 5px;" (click)='clickMoveFinishProcessCore(processoNoNucleo)' (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
     <!-- <button style="padding: 5px;" (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" > -->
       <div class='borderMyButton'>
         ID : {{processoNoNucleo.process_id}}
@@ -25,7 +25,7 @@
 
   <div>
     <h1>Processos</h1>
-    <button class="button button--outline" (click)='KillProcessFila(processoNaFila)' (click)='print(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
+    <button class="button button--outline" (click)='cliclMoveFinishProcessFila(processoNaFila)' (click)='print(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
       <div>
         ID : {{processoNaFila.process_id}}
         Tempo Corrido: {{processoNaFila.remaining_time}}
