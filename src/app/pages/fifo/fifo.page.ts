@@ -4,6 +4,7 @@ import { KernelService } from 'src/app/services/kernel.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { ProcessadorService } from 'src/app/services/processador.service';
 import { Process } from 'src/app/models/process';
+import { SchedulerService } from 'src/app/services/scheduler.service';
 
 @Component({
   selector: 'app-fifo',
@@ -27,6 +28,7 @@ play = false;
     public kernel: KernelService,
     public menuservice: MenuService,
     public processador: ProcessadorService,
+    public schedulerService: SchedulerService
 
   ) { }
 
@@ -40,27 +42,18 @@ play = false;
     this.processador.gerarFilaProcessosFinalizados();
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
-    this.moveProcess();
+    this.schedulerService.moveProcess();
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
   }
 
   // Movendo processos
-  moveProcess() {
-    // console.log('Movendo processo');
-    this.processador.cores.forEach((elementProcessador, index) => {
-      if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio
-        (this.kernel.processo[0]).state = 'running';
-        this.processador.cores.splice(index, 1, this.kernel.processo[0]); // adiciona o processo no nucleo da array do kernel
-        this.kernel.processo.splice(0, 1); // retira o primeiro
-      }
-    });
-  }
+
 
   KillProcessCore(index) {
     // console.log(index);
     this.kernel.killProcess(this.processador.cores.indexOf(index)); // indexOf puxa o valor do index na array
-    this.moveProcess();
+    this.schedulerService.moveProcess();
   }
 
   KillProcessFila(index) {
@@ -87,7 +80,7 @@ startTimer() {
   this.interval = setInterval(() => {
     this.time++;
     if ( this.kernel.processo.length !== 0) { // se a lista de processos nao estiver vazia entrar no if
-      this.moveProcess();
+      this.schedulerService.moveProcess();
     }
     this.processador.cores.forEach((elementProcessador, index) => {
       (this.processador.cores[index]).remaining_time++;
@@ -133,16 +126,12 @@ clickMoveFinishProcessCore(i) {
 }
 
 
-cliclMoveFinishProcessFila(i) {
-  this.kernel.generateProcessVazio();
-  // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
-  i.state = 'terminated';
-  this.moveProcessoTerminated(i);
-  this.kernel.killProcessFila(i);
-}
-
-
-
-
+  cliclMoveFinishProcessFila(i) {
+    this.kernel.generateProcessVazio();
+    // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
+    i.state = 'terminated';
+    this.moveProcessoTerminated(i);
+    this.KillProcessFila(i);
+  }
 
 }

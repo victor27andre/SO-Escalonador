@@ -3,9 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class FifoService {
+export class SjfService {
 
-  menuFifo: any;
+  menuSJF: any;
 
   constructor() { }
+
+
+
+  
 }
