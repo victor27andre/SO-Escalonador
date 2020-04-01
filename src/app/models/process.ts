@@ -3,4 +3,5 @@ export class Process {
     total_time: number;
     state: string;
     remaining_time: number;
+    quantum?: number;
 }

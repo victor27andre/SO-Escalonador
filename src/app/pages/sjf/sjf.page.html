@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>SJF</ion-title>
-    <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button>
+    <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1) ;' (click)='this.ordenarMenorMaior()' >Adicionar Processo </ion-button>
     <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
   <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
 
@@ -57,7 +57,5 @@
     <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button> -->
   </ion-content>
   
-
-  <button (click) = 'ordenarMenorMaior()'>print</button>
 
 </ion-content>

@@ -32,6 +32,21 @@ export class KernelService {
     }
   }
 
+
+  generateProcessRB(numeroProcess) {
+    // console.log(this.menuservice.menu.numeroProcesso); // numero de processos que vai ser criado
+    for (let i = 1; i <= numeroProcess; i++) {
+      this.processo.push({ // incrementa array
+        process_id: i,
+        total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
+        state: 'ready' ,
+        remaining_time: 0, // recebe 0, pois ainda nao esta processando.
+        quantum: 0
+      });
+      // console.log(this.processo);
+    }
+  }
+
   // Cria core Vazio
   generateProcessVazio() {
         this.coreVazio.push({ // incrementa array
@@ -64,6 +79,17 @@ export class KernelService {
       });
       this.menuservice.menu.numeroProcesso ++;
   }
+
+  addProcessRB(numeroProcess) {
+    this.processo.push({ // incrementa array
+      process_id: numeroProcess,
+      total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
+      state: 'ready' ,
+      remaining_time: 0, // recebe 0, pois ainda nao esta processando.
+      quantum: 0
+    });
+    this.menuservice.menu.numeroProcesso ++;
+}
 
 
 
