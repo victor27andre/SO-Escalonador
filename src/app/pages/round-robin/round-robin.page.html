@@ -13,39 +13,46 @@
   <ion-content>
     <div>
       <h1>Core</h1>
-      <button style="padding: 5px;" (click)='clickMoveFinishProcessCore(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
+      <div style="padding: 5px;" (click)='clickMoveFinishProcessCore(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
       <!-- <button style="padding: 5px;" (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" > -->
         <div class='borderMyButton'>
           ID : {{processoNoNucleo.process_id}}
           Tempo Corrido : {{processoNoNucleo.remaining_time}}
           Stado : {{processoNoNucleo.state}}
           Tempo total : {{processoNoNucleo.total_time}}
+
+           <!-- adicionando barra de progress -->
+        <progress [value]="processoNoNucleo.remaining_time" [max]='processoNoNucleo.total_time'></progress>
+
         </div>
-      </button>
+      </div>
     </div>
   
     <div>
       <h1>Processos</h1>
-      <button class="button button--outline" (click)='cliclMoveFinishProcessFila(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
+      <div class="button button--outline" (click)='cliclMoveFinishProcessFila(processoNaFila)' *ngFor= "let processoNaFila of this.kernel.processo" >
         <div>
           ID : {{processoNaFila.process_id}}
           Tempo Corrido: {{processoNaFila.remaining_time}}
           Stado : {{processoNaFila.state}}
           Tempo total: {{processoNaFila.total_time}}
+           <!-- adicionando barra de progress -->
+        <progress [value]="processoNaFila.remaining_time" [max]='processoNaFila.total_time'></progress>
+       
         </div>
-      </button>
+      </div>
     </div>
   
     <div>
       <h1>Processos Finalizados</h1>
-      <button class="button button--outline" *ngFor= "let processoFinish of this.processador.terminated" >
+      <div class="button button--outline" *ngFor= "let processoFinish of this.processador.terminated" >
         <div>
           ID : {{processoFinish.process_id}}
           Tempo Corrido: {{processoFinish.remaining_time}}
           Stado : {{processoFinish.state}}
           Tempo total: {{processoFinish.total_time}}
         </div>
-      </button>
+      </div>
     </div>
   
   

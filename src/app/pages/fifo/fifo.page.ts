@@ -6,6 +6,8 @@ import { ProcessadorService } from 'src/app/services/processador.service';
 import { Process } from 'src/app/models/process';
 import { SchedulerService } from 'src/app/services/scheduler.service';
 
+
+
 @Component({
   selector: 'app-fifo',
   templateUrl: './fifo.page.html',
@@ -103,7 +105,7 @@ pauseTimer() {
 }
 
 moveProcessoTerminated(processFinish) {  
-  console.log('Movendo processo para finalizado', processFinish);
+  // console.log('Movendo processo para finalizado', processFinish);
   this.processador.terminated.forEach((elementProcessador, index) => {
     // console.log(elementProcessador);
     if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio

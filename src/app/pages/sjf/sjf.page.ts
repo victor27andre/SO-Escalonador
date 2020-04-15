@@ -49,8 +49,8 @@ play = false;
   }
 // procura o menor e ordena ou procura o menor na lista 
 ordenarMenorMaior() {
-    console.log(this.kernel.processo);
-    console.log('ORDENANDO');
+    // console.log(this.kernel.processo);
+    // console.log('ORDENANDO');
     // tslint:disable-next-line: only-arrow-functions
     this.kernel.processo.sort(function(a, b) {
       return a.total_time < b.total_time ? -1 : a.total_time > b.total_time ? 1 : 0;
