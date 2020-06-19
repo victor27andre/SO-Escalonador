@@ -9,7 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
+  <div id="left">
   <div>
     <h1>Core</h1>
     <div style="padding: 5px;" (click)='clickMoveFinishProcessCore(processoNoNucleo)' (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" >
@@ -52,12 +53,12 @@
         ID : {{processoFinish.process_id}}
         Tempo Corrido: {{processoFinish.remaining_time}}
         Stado : {{processoFinish.state}}
-        Tempo total: {{processoFinish.total_time}}
-
-       
+        Tempo total: {{processoFinish.total_time}}  
       </div>
     </div>
   </div>
+
+  <button (click)=teste() > TESTE </button>
 
 
 
@@ -66,4 +67,29 @@
 
 <div>{{time}}</div>
   <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button> -->
+</div>
+
+
+<div id="right">
+  <div>
+    <h1>Memoria</h1>
+    <div style="padding: 5px;" *ngFor= "let processoNamemoria of this.processador.cores; index as i" >
+    <!-- <button style="padding: 5px;" (click)='print(processoNoNucleo)' *ngFor= "let processoNoNucleo of this.processador.cores" > -->
+      <div class='borderMyButton'>
+        ID : {{processoNamemoria.blocoID}}
+        Tamanho Total : {{processoNamemoria.tamanhoTotal}}
+        index: {{i}}
+      </div>
+      <br>
+    </div>
+    <!-- adicionando barra de progress -->
+    memoria total dos Processos : {{memoriaProcessosTotal}}
+    <br>
+    memoria total processador : {{this.menuservice.menu.total_memory}}
+        <progress class="progress-bar w-75" role="progressbar" [value]="memoriaProcessosTotal" [max]='this.menuservice.menu.total_memory'></progress>
+        <br>  
+        <span>{{this.memoryManagerService.porcentMemoria(this.menuservice.menu.total_memory,this.memoriaProcessosTotal)}} %</span>
+      </div>
+</div>
+
 </ion-content>

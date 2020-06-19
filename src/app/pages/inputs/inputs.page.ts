@@ -3,9 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 // fazer o import do objeto menu
-import { MenuModelModule } from '../../modules/menu-model/menu-model.module';
-import { FifoService } from '../../services/fifo.service'
-
 
 
 
@@ -21,8 +18,12 @@ export class InputsPage implements OnInit {
   numeroProcesso: any
   core:any
   escalonador: any
+  memoria: any
+  total_memory: any
 
   quantum = new FormControl(['',[Validators.required, Validators.max(20), Validators.min(2)]])
+  number_quick_lists = new FormControl(['', Validators.required])
+  minimum_amount_calls = new FormControl(['', Validators.required])
 
 
 
@@ -35,11 +36,15 @@ export class InputsPage implements OnInit {
         numeroProcesso: ['', Validators.required],
         core: ['', [Validators.required, Validators.max(64), Validators.min(1)]],
         escalonador: ['', Validators.required],
+        memoria: ['', Validators.required],
+        total_memory: ['', Validators.required],
       });
 
       this.numeroProcesso = this.formgroup.controls['numeroProcesso'],
-      this.core = this.formgroup.controls['core']
-      this.escalonador = this.formgroup.controls['escalonador']
+      this.core = this.formgroup.controls['core'],
+      this.escalonador = this.formgroup.controls['escalonador'],
+      this.memoria = this.formgroup.controls['memoria']
+      this.total_memory = this.formgroup.controls['total_memory']
     }
 
   ngOnInit() {
@@ -61,6 +66,7 @@ export class InputsPage implements OnInit {
       case 'roundRobin': {
         this.escalonador = 'round-robin';
         this.formgroup.addControl('quantum', this.quantum);
+        this.formgroup.addControl('quantum', this.quantum);
         break;
       }
       default: {
@@ -71,10 +77,45 @@ export class InputsPage implements OnInit {
     }
   }
 
+  switchMemoria($event){
+    switch ($event.target.value) {
+      case 'mergeFit': {
+        this.memoria = 'mergeFit';
+        this.formgroup.removeControl('number_quick_lists');
+        this.formgroup.removeControl('minimum_amount_calls');
+
+        break;
+      }
+      case 'quickFit': {
+        this.memoria = 'quickFit';
+        this.formgroup.addControl('number_quick_lists', this.number_quick_lists);
+        this.formgroup.addControl('minimum_amount_calls', this.minimum_amount_calls);
+        
+        break;
+      }
+      case 'bestFit': {
+        this.memoria = 'bestFit';
+        this.formgroup.removeControl('number_quick_lists');
+        this.formgroup.removeControl('minimum_amount_calls');
+        break;
+      }
+      default: {
+        this.memoria = 'mergeFit';
+        this.formgroup.removeControl('number_quick_lists');
+        this.formgroup.removeControl('minimum_amount_calls');
+        break;
+      }
+    }
+  }
+
   start() {
     // console.log(this.formgroup.value); // configuração setada
     this.menuservice.menu = this.formgroup.value;
     this.router.navigate([this.escalonador]);
+  }
+
+  teste() {
+    console.log(this.formgroup.value);
   }
 
 

@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { KernelService } from 'src/app/services/kernel.service';
 import { MenuService } from 'src/app/services/menu.service';
 import { ProcessadorService } from 'src/app/services/processador.service';
-import { Process } from 'src/app/models/process';
+
 import { SchedulerService } from 'src/app/services/scheduler.service';
+import { MemoryManagerService } from 'src/app/services/memory-manager.service';
 
 
 
@@ -20,9 +21,7 @@ time = 0;
 interval;
 play = false;
 
-
-
-
+memoriaProcessosTotal=0
 
 
   constructor(
@@ -30,7 +29,9 @@ play = false;
     public kernel: KernelService,
     public menuservice: MenuService,
     public processador: ProcessadorService,
-    public schedulerService: SchedulerService
+    public schedulerService: SchedulerService,
+    public memoryManagerService: MemoryManagerService
+    
 
   ) { }
 
@@ -41,6 +42,9 @@ play = false;
     // console.log(this.menuservice.menu); // mostra as opçoes do menu
     this.kernel.generateProcess(this.menuservice.menu.numeroProcesso); // 10 - Starta os primeiros processos
     this.processador.gerarCores(this.menuservice.menu.core); // 4 - Gera os nucleos
+    
+    this.memoryManagerService.gerarMemoriaTotal(this.menuservice.menu.total_memory); // 4 - Gera a array de memoria
+    
     this.processador.gerarFilaProcessosFinalizados();
     // console.log(this.processador.cores);
     // console.log(this.kernel.processo);
@@ -94,6 +98,10 @@ startTimer() {
       }
 
     });
+
+    this.sumTamanhoUsado()
+    // this.memoryManagerService.porcentMemoria(this.menuservice.menu.total_memory,this.memoriaProcessosTotal)
+
    // (this.processador.cores[0]).remaining_time++; // incrementando no tempo corrido
   }, 1000);
   // console.log(this.processador.cores);
@@ -127,13 +135,43 @@ clickMoveFinishProcessCore(i) {
   }
 }
 
+sumTamanhoUsado(){
+  let sum = 0
+  console.log(this.menuservice)
+  // console.log(this.memoryManagerService.memoria)
+  console.log(this.processador.cores);
+  for (var i = 0; i < this.menuservice.menu.core; i++) {      
+    sum += this.processador.cores[i].tamanhoTotal;         
+ }      
+ this.memoriaProcessosTotal = sum   
+// console.log(this.memoriaProcessosTotal);    
+}
+
 
   cliclMoveFinishProcessFila(i) {
     this.kernel.generateProcessVazio();
-    // console.log('Kill no processo de index: ', i); // index da array q deseja excluir
     i.state = 'terminated';
     this.moveProcessoTerminated(i);
     this.KillProcessFila(i);
   }
+
+  teste(){
+    //core: 4
+    let sum = 0
+    console.log(this.menuservice)
+    // console.log(this.memoryManagerService.memoria)
+    console.log(this.processador.cores);
+    for (var i = 0; i < this.menuservice.menu.core; i++) {      
+      sum += this.processador.cores[i].tamanhoTotal;         
+   }      
+   this.memoriaProcessosTotal = sum   
+  // console.log(this.memoriaProcessosTotal);    
+  }
+
+
+
+
+  
+
 
 }

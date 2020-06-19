@@ -30,7 +30,6 @@
           <ion-select-option value="fifo">FIFO</ion-select-option>
           <ion-select-option value="sjf">SJF</ion-select-option>
           <ion-select-option value="roundRobin">Round Robin</ion-select-option>
-          
         </ion-select>
       </ion-item>
       <ion-item *ngIf="formgroup.controls.quantum" >
@@ -43,9 +42,57 @@
       
     </ion-list>
 
+    
+
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      
+      <ion-label position="floating">Menu de memória</ion-label>
+      <ion-item>
+        <ion-label>Memoria: </ion-label>
+        <ion-select formControlName='memoria' (ionChange)="switchMemoria($event)" interface="popover">
+          <ion-select-option value="mergeFit">mergeFit</ion-select-option>
+          <!-- <ion-select-option value="quickFit">quickFit</ion-select-option> -->
+          <ion-select-option value="bestFit">bestFit</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Tamanho total da memória</ion-label>
+        <ion-input  type = "number"
+                    formControlName='total_memory'
+          ></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="formgroup.controls.number_quick_lists" >
+        <ion-label position="floating">Quantidade de listas</ion-label>
+        <ion-input 
+          type = "number"
+          formControlName='number_quick_lists'
+          ></ion-input>
+      </ion-item>
+
+      
+      <ion-item *ngIf="formgroup.controls.minimum_amount_calls" >
+        <ion-label position="floating">Intervalo de requisições</ion-label>
+        <ion-input 
+          type = "number"
+          formControlName='minimum_amount_calls'
+          ></ion-input>
+      </ion-item>
+
+      
+
+      
+   
+    </ion-list>
+  
     <div class="ion-padding">
       <ion-button type='submit' >Start</ion-button>
     </div>
-    
+
   </form>
+  <button (click) = 'teste()'>BOTAO PARA TESTE</button>
+
+  
+
 </ion-content>

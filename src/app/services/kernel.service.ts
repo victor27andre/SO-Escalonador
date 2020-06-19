@@ -12,6 +12,7 @@ export class KernelService {
 
   processo = [];
   coreVazio = [];
+  memoriaTotal = [];
 
   constructor(
     public menuservice: MenuService,
@@ -26,12 +27,14 @@ export class KernelService {
         process_id: i,
         total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
         state: 'ready' ,
-        remaining_time: 0 // recebe 0, pois ainda nao esta processando.
+        remaining_time: 0, // recebe 0, pois ainda nao esta processando.
+        // memoria
+        blocoID: i,
+        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
       });
       // console.log(this.processo);
     }
   }
-
 
   generateProcessRB(numeroProcess) {
     // console.log(this.menuservice.menu.numeroProcesso); // numero de processos que vai ser criado
@@ -41,7 +44,10 @@ export class KernelService {
         total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
         state: 'ready' ,
         remaining_time: 0, // recebe 0, pois ainda nao esta processando.
-        quantum: 0
+        quantum: 0,
+        // memoria
+        blocoID: i,
+        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
       });
       // console.log(this.processo);
     }
@@ -53,7 +59,10 @@ export class KernelService {
         process_id: 0,
         total_time: 0, // cria o processo randomicamente de 1 a 20
         state: 'empty' ,
-        remaining_time: 0 // recebe 0, pois ainda nao esta processando.
+        remaining_time: 0, // recebe 0, pois ainda nao esta processando.
+        // memoria
+        blocoID: 0,
+        tamanhoTotal: 0,
       });
   }
 
@@ -75,7 +84,10 @@ export class KernelService {
         process_id: numeroProcess,
         total_time: Math.floor(Math.random() * (20) + 1), // cria o processo randomicamente de 1 a 20
         state: 'ready' ,
-        remaining_time: 0 // recebe 0, pois ainda nao esta processando.
+        remaining_time: 0, // recebe 0, pois ainda nao esta processando.
+        // memoria
+        blocoID: numeroProcess,
+        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
       });
       this.menuservice.menu.numeroProcesso ++;
   }
