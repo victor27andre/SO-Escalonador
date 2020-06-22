@@ -23,8 +23,6 @@
        
         <!-- adicionando barra de progress -->
         <progress [value]="processoNoNucleo.remaining_time" [max]='processoNoNucleo.total_time'></progress>
-
-
       </div>
       <br>
     </div>
@@ -78,7 +76,6 @@
       <div class='borderMyButton'>
         ID : {{processoNamemoria.blocoID}}
         Tamanho Total : {{processoNamemoria.tamanhoTotal}}
-        index: {{i}}
       </div>
       <br>
     </div>
@@ -90,6 +87,15 @@
         <br>  
         <span>{{this.memoryManagerService.porcentMemoria(this.menuservice.menu.total_memory,this.memoriaProcessosTotal)}} %</span>
       </div>
+
+
+      <!-- array de memoria -->
+      <div *ngFor= "let blocoDeMemoria of this.memoryManagerService.memoria" >
+        
+        <span id="vazio"> ID: {{blocoDeMemoria.blocoID}} | Tamanho: {{blocoDeMemoria.tamanhoTotal}}</span>
+
+      </div>   
+
 </div>
 
 </ion-content>

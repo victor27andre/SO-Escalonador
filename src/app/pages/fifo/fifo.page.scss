@@ -19,3 +19,11 @@
 
 #left  { float:left;  }
 #right { float:right; } 
+
+#vazio{
+  margin: 5px;
+  width: 50px;
+  /* quadrados são retangulos com width = height  */
+  height: 50px;
+  background-color: rgba(35, 35, 255, 0.26);
+}

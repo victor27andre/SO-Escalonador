@@ -30,7 +30,8 @@ export class KernelService {
         remaining_time: 0, // recebe 0, pois ainda nao esta processando.
         // memoria
         blocoID: i,
-        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+        // tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+        tamanhoTotal: Math.floor(Math.random() * (10) + 1),
       });
       // console.log(this.processo);
     }
@@ -47,7 +48,8 @@ export class KernelService {
         quantum: 0,
         // memoria
         blocoID: i,
-        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+         // tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+        tamanhoTotal: Math.floor(Math.random() * (10) + 1),
       });
       // console.log(this.processo);
     }
@@ -87,7 +89,9 @@ export class KernelService {
         remaining_time: 0, // recebe 0, pois ainda nao esta processando.
         // memoria
         blocoID: numeroProcess,
-        tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+        // tamanhoTotal: Math.floor(Math.random() * (4096) + 1),
+        tamanhoTotal: Math.floor(Math.random() * (10) + 1),
+
       });
       this.menuservice.menu.numeroProcesso ++;
   }

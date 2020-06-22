@@ -6,7 +6,7 @@ export class memoryBlock{
     tamanhoTotal: number;
     
     constructor() {
-        
+        this.blocoID = null
     }
     
     public getTamanho(){
