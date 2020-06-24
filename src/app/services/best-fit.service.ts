@@ -12,6 +12,7 @@ export class BestFitService {
   x
   indexNulo
   achou
+  limiteRodar
 
   constructor(
     public memoryManagerService: MemoryManagerService,
@@ -20,10 +21,13 @@ export class BestFitService {
 
     encontraMelhorPosicao(processo){
       this.achou= false
+      this.limiteRodar = processo.tamanhoTotal
       this.memoryManagerService.memoria.forEach((elementMemoria, index) => {
-        if(elementMemoria.blocoID == 'vazio' && processo.tamanhoTotal === elementMemoria.tamanhoTotal){
+        if(elementMemoria.blocoID == 'vazio' && processo.tamanhoTotal === elementMemoria.tamanhoTotal && this.limiteRodar > 0){
           // console.log('bloco: ', elementMemoria, 'index: ' ,index);
+          
           this.memoryManagerService.memoria.splice(index, 1, this.kernel.processo[0]);
+          this.limiteRodar --
           this.achou= true
         }
       })
