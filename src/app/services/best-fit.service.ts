@@ -10,9 +10,9 @@ export class BestFitService {
     public memoryManagerService: MemoryManagerService,
   ) { }
 
-  ocupaMemoria(memorias, processo) {
-    console.log(memorias)
-    console.log(processo)
+  mainBestFit() {
+    console.log()
+    console.log()
   }
 
 }

@@ -83,6 +83,7 @@ memoriaProcessosTotal=0
 
 startTimer() {
   this.play = true;
+  this.schedulerService.flagStart = false
   this.interval = setInterval(() => {
     this.time++;
     if ( this.kernel.processo.length !== 0) { // se a lista de processos nao estiver vazia entrar no if
@@ -94,7 +95,9 @@ startTimer() {
         (this.processador.cores[index]).state = 'terminated';
         // console.log('terminou!!', this.processador.cores[index]);
         this.moveProcessoTerminated(this.processador.cores[index]);
-        this.killMemoriaFila(this.processador.cores[index])
+        // this.killMemoriaFila(this.processador.cores[index])    
+        this.memoryManagerService.killMemoria(this.processador.cores[index]); // mata memoria
+        
         this.KillProcessCore(this.processador.cores[index]); // ja mata o processo e chama o moveProcess()
       }
 

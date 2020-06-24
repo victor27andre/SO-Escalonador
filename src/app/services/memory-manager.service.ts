@@ -9,6 +9,7 @@ import { KernelService } from './kernel.service';
 export class MemoryManagerService {
 
   memoriaVazia = []
+  auxTamanho
 
   constructor(
     public menuservice: MenuService,
@@ -31,37 +32,33 @@ export class MemoryManagerService {
   }
 
   killMemoria(processo) {
-    this.generateMemoriaVazia();
+    this.generateMemoriaVazia(processo);
     // console.log(processo.process_id);
     // console.log(this.memoria);
     for(let index = 0; index < this.menuservice.menu.total_memory; index++){
       if(processo.process_id === (this.memoria[index]).blocoID){
-        console.log((this.memoria[index]))
-        // console.log(processo.process_id)
-        // this.memoria[index] = this.memoriaVazia;
         this.memoria.splice(index, 1, this.memoriaVazia[0]);
       }
     }
-    
-    //vai percorrer onde array, e onde core[i].ID === memoria[i]ID,
-    // ira colocar memoria vazia
+    this.memoriaVazia.splice(0, 1);
 
-    
-    // this.memoria.splice(i, 1, this.generateMemoriaVazia[0]);
   }
 
-  generateMemoriaVazia() {
+
+  generateMemoriaVazia(processo) {
+    // console.log(processo.tamanhoTotal)
+    this.auxTamanho = processo.tamanhoTotal
+
     this.memoriaVazia.push({ // incrementa array
     process_id: null,
     total_time: null, // cria o processo randomicamente de 1 a 20
     state: 'empty' ,
     remaining_time: null, // recebe 0, pois ainda nao esta processando.
     // memoria
-    blocoID: null,
-    tamanhoTotal: null,
+    blocoID: 'vazio',
+    tamanhoTotal: this.auxTamanho,
   });
+
+
 }
-
-
-
 }

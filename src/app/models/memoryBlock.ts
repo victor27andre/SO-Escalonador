@@ -1,7 +1,7 @@
 
 
 export class memoryBlock{
-    blocoID: number;
+    blocoID: string;
     tamanhoUsado: number;
     tamanhoTotal: number;
     

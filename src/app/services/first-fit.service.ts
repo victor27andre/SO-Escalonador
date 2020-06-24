@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MemoryManagerService } from './memory-manager.service';
 import { KernelService } from './kernel.service';
+import { element } from 'protractor';
+import { memoryBlock } from '../models/memoryBlock';
 
 
 @Injectable({
@@ -8,32 +10,43 @@ import { KernelService } from './kernel.service';
 })
 export class FirstFitService {
 
+  somaIndice
+  indexMemoriAux = 0
+  x
+  indexNulo
+  achou
+  
+
   constructor(
     public memoryManagerService: MemoryManagerService,
     public kernel: KernelService,
   ) { }
 
-  memoriadoProcesso
 
-  getProcesso(processo){
-    this.memoriadoProcesso = processo
+  encontraMelhorPosicao(processo){
+    this.achou= false
+    this.memoryManagerService.memoria.forEach((elementMemoria, index) => {
+      if(elementMemoria.blocoID == 'vazio' && processo.tamanhoTotal === elementMemoria.tamanhoTotal){
+        // console.log('bloco: ', elementMemoria, 'index: ' ,index);
+        this.memoryManagerService.memoria.splice(index, 1, this.kernel.processo[0]);
+        this.achou= true
+      }
+    })
+    this.blocoNovo(processo, this.achou)
   }
 
-  moveMemoria(index) {
-    // this.memoryManagerService.memoria.forEach((elementMemoria) => {
-      // if (!elementMemoria.blocoID) { // Separa o vetor que esteja vazio
-        // console.log(elementMemoria);
-        // (this.kernel.processo[0]).state = 'running';
-        this.memoryManagerService.memoria.splice(index, 1, this.kernel.processo[0]); // adiciona o processo no nucleo da array do kernel
-      // }
-    // });
-  }
+  blocoNovo(processo, naoachou){
+    if(!naoachou) {
+      this.indexNulo = this.memoryManagerService.memoria.indexOf(this.memoryManagerService.memoria.find((element) => element.blocoID ===null))
+      console.log(this.indexNulo) 
+      this.x = this.indexNulo + processo.tamanhoTotal
+      for (let index = this.indexNulo; index <= this.x; index++) {
+        
+        this.memoryManagerService.memoria.splice(index, 1, this.kernel.processo[0]); // adiciona o processo na memoria
 
+      }
+    }
+
+    } 
   
-
-  ocupaMemoria(memorias, processo) {
-    console.log(memorias)
-    console.log(processo)
-  }
-
 }
