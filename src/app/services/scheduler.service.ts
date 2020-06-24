@@ -17,6 +17,7 @@ export class SchedulerService {
     public processador: ProcessadorService,
     public memoryManagerService: MemoryManagerService,
     public bestFitService : BestFitService,
+    public firstFitService : FirstFitService,
     public menuservice : MenuService,
   ) { }
   
@@ -27,6 +28,7 @@ export class SchedulerService {
   totalSum = 0
 
   moveProcess() {
+    // console.log(this.menuservice.menu.memoria)
     // console.log('Movendo processo');
     this.processador.cores.forEach((elementProcessador, index) => {
       if (!elementProcessador.process_id) { // Separa o vetor que esteja vazio
@@ -49,7 +51,20 @@ export class SchedulerService {
   // ocupar o espaço 
   moveProcessMemoria(processo) {
     // chama o algoritmo FirstFit
-    this.bestFitService.encontraMelhorPosicao(processo)
+
+    switch (this.menuservice.menu.memoria) {
+      case 'firstFit':
+        this.firstFitService.encontraMelhorPosicao(processo)
+      break;
+      case 'bestFit':
+        this.bestFitService.encontraMelhorPosicao(processo)
+      break;
+    
+      default:
+        break;
+    }
+
+    // this.bestFitService.encontraMelhorPosicao(processo)
     // vai contar se tem espaço para anexar o processo novo
     // se tiver ele retorna novo indice para anexar, se nao, segue o jogo
     

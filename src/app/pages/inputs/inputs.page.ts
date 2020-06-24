@@ -79,8 +79,8 @@ export class InputsPage implements OnInit {
 
   switchMemoria($event){
     switch ($event.target.value) {
-      case 'mergeFit': {
-        this.memoria = 'mergeFit';
+      case 'firstFit': {
+        this.memoria = 'firstFit';
         this.formgroup.removeControl('number_quick_lists');
         this.formgroup.removeControl('minimum_amount_calls');
 

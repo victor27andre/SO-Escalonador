@@ -33,9 +33,9 @@ export class BestFitService {
     blocoNovo(processo, naoachou){
       if(!naoachou) {
         this.indexNulo = this.memoryManagerService.memoria.indexOf(this.memoryManagerService.memoria.find((element) => element.blocoID ===null))
-        console.log(this.indexNulo) 
+        // console.log(this.indexNulo) 
         this.x = this.indexNulo + processo.tamanhoTotal
-        for (let index = this.indexNulo; index <= this.x; index++) {
+        for (let index = this.indexNulo; index < this.x; index++) {
           
           this.memoryManagerService.memoria.splice(index, 1, this.kernel.processo[0]); // adiciona o processo na memoria
   
