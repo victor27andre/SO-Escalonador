@@ -5,6 +5,7 @@ import { MemoryManagerService } from './memory-manager.service';
 import { FirstFitService } from './first-fit.service';
 import { element } from 'protractor';
 import { MenuService } from './menu.service';
+import { BestFitService } from './best-fit.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class SchedulerService {
     public kernel: KernelService,
     public processador: ProcessadorService,
     public memoryManagerService: MemoryManagerService,
-    public FirstFitService : FirstFitService,
+    public bestFitService : BestFitService,
     public menuservice : MenuService,
   ) { }
   
@@ -48,7 +49,7 @@ export class SchedulerService {
   // ocupar o espaço 
   moveProcessMemoria(processo) {
     // chama o algoritmo FirstFit
-    this.FirstFitService.encontraMelhorPosicao(processo)
+    this.bestFitService.encontraMelhorPosicao(processo)
     // vai contar se tem espaço para anexar o processo novo
     // se tiver ele retorna novo indice para anexar, se nao, segue o jogo
     
