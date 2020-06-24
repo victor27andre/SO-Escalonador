@@ -1,8 +1,29 @@
 .borderMyButton{
-    padding: 5px;
-    
-    background-image: linear-gradient(to bottom right, rgba(0, 0, 255, 0.24), rgb(253, 253, 253)); 
+  padding: 5px;
   
-  
-  
-  }
+  background-image: linear-gradient(to bottom right, rgba(0, 0, 255, 0.24), rgb(253, 253, 253)); 
+}
+
+#content { 
+  overflow:auto; 
+  width: 600px; 
+  background: gray; 
+} 
+
+#left, #right { 
+  width: 40%; 
+  margin:5px; 
+  padding: 1em; 
+  background: white; 
+} 
+
+#left  { float:left;  }
+#right { float:right; } 
+
+#vazio{
+  margin: 5px;
+  width: 50px;
+  /* quadrados são retangulos com width = height  */
+  height: 50px;
+  background-color: rgba(35, 35, 255, 0.26);
+}

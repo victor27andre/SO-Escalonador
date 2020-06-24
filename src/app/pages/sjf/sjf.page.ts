@@ -4,6 +4,12 @@ import { MenuService } from 'src/app/services/menu.service';
 import { KernelService } from 'src/app/services/kernel.service';
 import { SchedulerService } from 'src/app/services/scheduler.service';
 
+import { MemoryManagerService } from 'src/app/services/memory-manager.service';
+import { BestFitService } from 'src/app/services/best-fit.service';
+import { FirstFitService } from 'src/app/services/first-fit.service';
+
+
+
 @Component({
   selector: 'app-sjf',
   templateUrl: './sjf.page.html',
@@ -14,12 +20,18 @@ time = 0;
 interval;
 play = false;
 
+memoriaProcessosTotal=0
+
+
 
   constructor(
     public kernel: KernelService,
     public menuservice: MenuService,
     public processador: ProcessadorService,
-    public schedulerService: SchedulerService
+    public schedulerService: SchedulerService,
+    public memoryManagerService: MemoryManagerService,
+    public bestFitService: BestFitService,
+    public FirstFitService : FirstFitService
 
   ) { }
 
@@ -27,26 +39,19 @@ play = false;
     this.kernel.generateProcess(this.menuservice.menu.numeroProcesso); // 10 - Starta os primeiros processos
     this.ordenarMenorMaior();
     this.processador.gerarCores(this.menuservice.menu.core); // 4 - Gera os nucleos
+    
+    this.memoryManagerService.gerarMemoriaTotal(this.menuservice.menu.total_memory); // 4 - Gera a memoria
+
     this.processador.gerarFilaProcessosFinalizados();
+    
     this.schedulerService.moveProcess();
   }
 
-  print() {
-    // console.log('PRINT');
-    // console.log(this.processador.cores);
-    // console.log(this.kernel.processo);
-
-    // this.kernel.killProcess(this.processador.cores.indexOf(this.processador.cores[1])); // indexOf puxa o valor do index na array
-    // console.log(this.processador.cores);
-    // console.log(this.kernel.processo);
-    // this.moveProcess();
-    // console.log(this.processador.cores);
-    // console.log(this.kernel.processo);
-
-    // console.log(this.processador.terminated);
-
-    
+  killMemoriaFila(processo) {
+    // console.log(processo)
+    this.memoryManagerService.killMemoria(processo); // mata memoria
   }
+
 // procura o menor e ordena ou procura o menor na lista 
 ordenarMenorMaior() {
     // console.log(this.kernel.processo);
@@ -73,8 +78,12 @@ ordenarMenorMaior() {
           (this.processador.cores[index]).state = 'terminated';
           // console.log('terminou!!', this.processador.cores[index]);
           this.moveProcessoTerminated(this.processador.cores[index]);
+          this.memoryManagerService.killMemoria(this.processador.cores[index]); 
+          
           this.KillProcessCore(this.processador.cores[index]); // ja mata o processo e chama o moveProcess()
         }
+
+        this.sumTamanhoUsado()
   
       });
      // (this.processador.cores[0]).remaining_time++; // incrementando no tempo corrido
@@ -90,6 +99,18 @@ ordenarMenorMaior() {
   pauseTimer() {
     this.play = false;
     clearInterval(this.interval);
+  }
+
+  sumTamanhoUsado(){
+    let sum = 0
+    // console.log(this.menuservice)
+    // console.log(this.memoryManagerService.memoria)
+    // console.log(this.processador.cores);
+    for (var i = 0; i < this.menuservice.menu.core; i++) {      
+      sum += this.processador.cores[i].tamanhoTotal;         
+   }      
+   this.memoriaProcessosTotal = sum   
+  // console.log(this.memoriaProcessosTotal);    
   }
 
   moveProcessoTerminated(processFinish) {  

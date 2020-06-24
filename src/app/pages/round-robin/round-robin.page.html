@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>FIFO</ion-title>
+    <ion-title>{{this.menuservice.menu.escalonador}}</ion-title>
     <ion-button type='submit' (click)= 'this.kernel.addProcess(this.menuservice.menu.numeroProcesso + 1);' >Adicionar Processo </ion-button>
     <ion-button type='submit' (click)= 'startTimer()' >start </ion-button>
   <ion-button type='submit' (click)= 'pauseTimer()' >pause </ion-button>
 
-<div>TIMER : {{time}}</div>
+<div>TIMER : {{time}} | Quantum: {{this.menuservice.menu.quantum}} |  Algoritmo Memoria: {{this.menuservice.menu.memoria}}</div>
   </ion-toolbar>
 </ion-header>
 
@@ -83,8 +83,9 @@
     memoria total dos Processos : {{memoriaProcessosTotal}}
     <br>
     memoria total processador : {{this.menuservice.menu.total_memory}}
-        <progress class="progress-bar w-75" role="progressbar" [value]="memoriaProcessosTotal" [max]='this.menuservice.menu.total_memory'></progress>
-        <br>  
+    <br>
+    <progress class="progress-bar w-75" role="progressbar" [value]="memoriaProcessosTotal" [max]='this.menuservice.menu.total_memory'></progress>
+      
         <span>{{this.memoryManagerService.porcentMemoria(this.menuservice.menu.total_memory,this.memoriaProcessosTotal)}} %</span>
       </div>
 
